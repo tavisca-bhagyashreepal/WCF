@@ -1,0 +1,8 @@
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\bin\Debug\EmployeeConsumer.exe.config
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\bin\Debug\EmployeeConsumer.exe
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\bin\Debug\EmployeeConsumer.pdb
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\bin\Debug\EmployeeWcf.dll
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\bin\Debug\EmployeeWcf.pdb
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\obj\Debug\EmployeeConsumer.csprojResolveAssemblyReference.cache
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\obj\Debug\EmployeeConsumer.exe
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeConsumer\obj\Debug\EmployeeConsumer.pdb
