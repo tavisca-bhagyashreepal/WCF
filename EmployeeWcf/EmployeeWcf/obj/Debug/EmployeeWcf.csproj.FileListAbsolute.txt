@@ -2,4 +2,3 @@ E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcf\bin\EmployeeWc
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcf\bin\EmployeeWcf.pdb
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcf\obj\Debug\EmployeeWcf.dll
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcf\obj\Debug\EmployeeWcf.pdb
-E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcf\obj\Debug\EmployeeWcf.csprojResolveAssemblyReference.cache

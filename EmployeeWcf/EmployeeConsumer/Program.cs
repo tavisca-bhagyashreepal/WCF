@@ -20,7 +20,7 @@ namespace EmployeeConsumer
             String employeeRemarks = "";
             int employeeId = 0 ;
             DateTime dateTime = DateTime.Now;
-            String continueChoice = "n";
+            
             
             int choice = 0;
             var employeeAddandCreateObject = new EmployeeAddandCreateClient("WSHttpBinding_IEmployeeAddandCreate");

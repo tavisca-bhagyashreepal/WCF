@@ -9,17 +9,19 @@ namespace EmployeeWcf
 {
 
     
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
+   // [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class EmployeeService : IEmployeeAddandCreate, IEmployeeRetrieve
     {
         private static List<Employee> EmpList = new List<Employee>();
     
         public List<Employee> CreateEmployee(Employee employee)
         {
-            int index = EmpList.FindIndex(a => a.Id == (employee.Id));
+           
+            int index = EmpList.FindIndex(a => a.Id.Equals(employee.Id));
 
             if (index < 0)
             {
+
                 EmpList.Add(employee);
                 return EmpList;
             }
@@ -43,7 +45,7 @@ namespace EmployeeWcf
         public Employee GetEmployeeDetails(int id)
         {
 
-            int index = EmpList.FindIndex(a => a.Id == (id));
+            int index = EmpList.FindIndex(a => a.Id.Equals(id));
            
             if (index >= 0)
             {
@@ -85,7 +87,7 @@ namespace EmployeeWcf
 
         public Employee AddRemarksById(int id ,String remark)
         {
-            int index = EmpList.FindIndex(a => a.Id == id);
+            int index = EmpList.FindIndex(a => a.Id.Equals(id));
            
                 if (index >= 0)
                 {

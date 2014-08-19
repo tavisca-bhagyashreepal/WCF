@@ -9,82 +9,123 @@ namespace EmployeeWcfTest
     [TestClass]
     public class EmployeeWcfFixture
     {
-        EmployeeAddandCreateClient _employeeAddandCreateClient =  new EmployeeAddandCreateClient("WSHttpBinding_IEmployeeAddandCreate");
-        EmployeeRetrieveClient _employeeRetrieveClient =new EmployeeRetrieveClient("BasicHttpBinding_IEmployeeRetrieve");
-        
+        EmployeeAddandCreateClient _employeeAddandCreateClient = null; 
+        EmployeeRetrieveClient _employeeRetrieveClient =null;
+        Employee _employee = null;
+        List<Employee> _employeeList = null;
+
+        [TestInitialize]
+        public void InitTestData()
+        {
+            _employeeAddandCreateClient = new EmployeeAddandCreateClient("WSHttpBinding_IEmployeeAddandCreate");
+            _employeeRetrieveClient = new EmployeeRetrieveClient("BasicHttpBinding_IEmployeeRetrieve");
+            _employee = new Employee();
+            _employeeList = new List<Employee>();
+         
+        }
+
         [TestMethod]
         public void AddEmployeeTest()
-        {       
-            Employee employee = new Employee();
-            employee.Name = "Bhagyashree";
-            employee.Id = 1;
-            employee.Text = "Good Girl";
-            employee.Date = Convert.ToDateTime("12 / 2 / 2014");
-            List<Employee> empList = new List<Employee>();
-            empList.AddRange(_employeeAddandCreateClient.CreateEmployee(employee)); 
-            Assert.AreEqual(empList[0].Id, 1);
+        {                 
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 1;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            Assert.AreEqual(_employeeList[0].Id, 1);
         }
     
         [TestMethod]
         public void RetrieveEmployeeByIdTest()
         {
-
-            Employee employee = _employeeRetrieveClient.SearchById(1);
-            Assert.AreEqual(1, employee.Id);
+            
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 2;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            Employee empSearch = _employeeRetrieveClient.SearchById(2);
+            Assert.AreEqual(2, empSearch.Id);
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ServiceModel.FaultException<FaultExceptionContract>))]
         public void RetrieveEmployeeByIdButIdNotPresentTest()
         {
-            Employee employee = _employeeRetrieveClient.SearchById(2);
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 3;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            Employee empSearch = _employeeRetrieveClient.SearchById(13);
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ServiceModel.FaultException<FaultExceptionContract>))]
         public void AddAgainEmployeeTest()
         {
+            
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 4;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
 
-            Employee employee = new Employee();
-            employee.Name = "Deepali";
-            employee.Id = 1;
-            employee.Text = "Good Girl";
-            employee.Date = Convert.ToDateTime("12 / 2 / 2014");
-            List<Employee> empList = new List<Employee>();
-            empList.AddRange(_employeeAddandCreateClient.CreateEmployee(employee));
+            Employee employeeSecond = new Employee();
+            employeeSecond.Name = "Deepali";
+            employeeSecond.Id = 4;
+            employeeSecond.Text = "Good Girl";
+            employeeSecond.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(employeeSecond));
 
         }
 
         [TestMethod]
         public void RetrieveEmployeeByNameTest()
         {
-
-            Employee employee = _employeeRetrieveClient.SearchByName("Bhagyashree");
-            Assert.AreEqual("Bhagyashree",employee.Name );
+            _employee.Name = "Anuradha";
+            _employee.Id = 5;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee));
+            Employee employeeSearch = _employeeRetrieveClient.SearchByName("Anuradha");
+            Assert.AreEqual("Anuradha",employeeSearch.Name );
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ServiceModel.FaultException<FaultExceptionContract>))]
         public void RetrieveEmployeeByNameButNameNotPresentTest()
         {
-            Employee employee = _employeeRetrieveClient.SearchByName("Rashmi");
+            
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 6;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            Employee employeeSearch = _employeeRetrieveClient.SearchByName("Rashmi");
         }
 
 
         [TestMethod]
         public void RetrieveAllEmployeesTest()
         {
+          
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 7;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
 
-            List<Employee> employeeList = new List<Employee>();
-            employeeList.AddRange(_employeeRetrieveClient.GetAllEmployees());
-            foreach (Employee employee in employeeList)
+            
+            _employeeList.AddRange(_employeeRetrieveClient.GetAllEmployees());
+            foreach (Employee empList in _employeeList)
             {
-                Debug.WriteLine("EmployeeId:"+ employee.Id);
-                Debug.WriteLine("EmployeeName:" + employee.Name);
-                Debug.WriteLine("EmployeeRemark:" + employee.Text);
-                Debug.WriteLine("EmployeeDate:" + employee.Date);
+                Debug.WriteLine("EmployeeId:"+ empList.Id);
+                Debug.WriteLine("EmployeeName:" + empList.Name);
+                Debug.WriteLine("EmployeeRemark:" + empList.Text);
+                Debug.WriteLine("EmployeeDate:" + empList.Date);
             }
-            Assert.AreEqual(1, employeeList.Count);
+           
         }
 
       
@@ -93,33 +134,54 @@ namespace EmployeeWcfTest
         [TestMethod]
         public void AddRemarkForExistingEmployeeTest()
         {
-
-            Employee employee =_employeeAddandCreateClient.AddRemarksById(1, "Bad Girl");
-            Assert.AreEqual(employee.Text, "Bad Girl");           
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 8;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            Employee employeeRemarkId =_employeeAddandCreateClient.AddRemarksById(8, "Bad Girl");
+            Assert.AreEqual(employeeRemarkId.Text, "Bad Girl");           
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ServiceModel.FaultException<FaultExceptionContract>))]
         public void AddRemarkForExistingEmployeeButEmployeeNotPresentTest()
         {
-            Employee employee = _employeeAddandCreateClient.AddRemarksById(3, "Bad Girl");    
+            
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 9;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            Employee employeeRemarkId = _employeeAddandCreateClient.AddRemarksById(12, "Bad Girl");    
         }
 
 
         [TestMethod]
         public void GetEmployeeByRemarkTest()
         {
-            List<Employee> employeeList = new List<Employee>();
-            employeeList.AddRange(_employeeRetrieveClient.SearchByRemark("Bad Girl"));
-            Assert.AreEqual(employeeList[0].Text, "Bad Girl");
+            
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 10;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+            _employeeList.AddRange(_employeeRetrieveClient.SearchByRemark("Good Girl"));
+            Assert.AreEqual(_employeeList[0].Text, "Good Girl");
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.ServiceModel.FaultException<FaultExceptionContract>))]
         public void GetEmployeeByRemarkButRemarkNotPresentTest()
         {
-            List<Employee> employeeList = new List<Employee>();
-            employeeList.AddRange(_employeeRetrieveClient.SearchByRemark(" Bad Boy"));
+           
+            _employee.Name = "Bhagyashree";
+            _employee.Id = 11;
+            _employee.Text = "Good Girl";
+            _employee.Date = Convert.ToDateTime("12 / 2 / 2014");
+            _employeeList.AddRange(_employeeAddandCreateClient.CreateEmployee(_employee)); 
+      
+            _employeeList.AddRange(_employeeRetrieveClient.SearchByRemark(" Bad Boy"));
             
         }
     }

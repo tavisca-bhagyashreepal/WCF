@@ -1,6 +1,5 @@
+E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\bin\Debug\EmployeeWcfTest.dll.config
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\bin\Debug\EmployeeWcfTest.dll
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\bin\Debug\EmployeeWcfTest.pdb
-E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\obj\Debug\EmployeeWcfTest.csprojResolveAssemblyReference.cache
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\obj\Debug\EmployeeWcfTest.dll
 E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\obj\Debug\EmployeeWcfTest.pdb
-E:\webserver\red-repo\webserver\WebServer\EmployeeWcf\EmployeeWcfTest\bin\Debug\EmployeeWcfTest.dll.config

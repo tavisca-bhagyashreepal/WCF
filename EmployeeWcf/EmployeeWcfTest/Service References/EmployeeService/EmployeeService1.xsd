@@ -17,7 +17,6 @@
   <xs:element name="Employee" nillable="true" type="tns:Employee" />
   <xs:complexType name="FaultExceptionContract">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StatusCode" nillable="true" type="xs:string" />
     </xs:sequence>
