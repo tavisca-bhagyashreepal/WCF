@@ -65,9 +65,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomExceptions\EmployeeIdAlreadyPresentException.cs" />
+    <Compile Include="CustomExceptions\IdNotPresentException.cs" />
     <Compile Include="EmployeeService.svc.cs">
       <DependentUpon>EmployeeService.svc</DependentUpon>
     </Compile>
+    <Compile Include="FaultException.cs" />
     <Compile Include="IEmployeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +84,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

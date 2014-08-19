@@ -13,10 +13,12 @@ namespace EmployeeWcf
     public interface IEmployeeAddandCreate
     {
         [OperationContract]
-        void CreateEmployee(String Name,  DateTime date, String remark);
+        [FaultContract(typeof(FaultExceptionContract))]
+        List<Employee> CreateEmployee(Employee employee);
 
         [OperationContract]
-        void AddRemarksById(int id);
+        [FaultContract(typeof(FaultExceptionContract))]
+        Employee AddRemarksById(int id , String remark);
      
     }
 
@@ -25,35 +27,45 @@ namespace EmployeeWcf
     public interface IEmployeeRetrieve
     {
         [OperationContract]
-        void GetAllEmployees();
+        List<Employee> GetAllEmployees();
 
         [OperationContract(Name = "SearchById")]
-        void GetEmployeeDetails(int id);
+        [FaultContract(typeof(FaultExceptionContract))]
+        Employee GetEmployeeDetails(int id);
 
         [OperationContract(Name = "SearchByName")]
-        void GetEmployeeDetails(string name);
+        [FaultContract(typeof(FaultExceptionContract))]
+        Employee GetEmployeeDetails(string name);
 
 
         [OperationContract(Name = "SearchByRemark")]
-        void GetEmployeeByRemarks(string remark);
-        // TODO: Add your service operations here
+        [FaultContract(typeof(FaultExceptionContract))]
+        List<Employee> GetEmployeeByRemarks(string remark);
+       
     }
 
+
+  
 
     [DataContract]
     public class Employee
     {
         [DataMember] //this proprty should be exposed
-        public int Id ;
+        public int Id {get; set;}
 
         [DataMember]
         public string Name { get; set; }
 
         [DataMember] //this proprty should be exposed
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
 
         [DataMember]
-        public string text { get; set; }
+        public string Text { get; set; }
 
+       
     }
+
+
+
+
 }

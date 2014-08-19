@@ -58,8 +58,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\EmployeeWcf.Employee.datasource" />
+    <None Include="Service References\EmployeeService\EmployeeConsumer.EmployeeService.Employee.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\EmployeeService\EmployeeService.wsdl" />
-    <None Include="Service References\EmployeeService\EmployeeService1.wsdl" />
+    <None Include="Service References\EmployeeService\EmployeeService.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\EmployeeService\EmployeeService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -87,12 +92,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EmployeeWcf\EmployeeWcf.csproj">
-      <Project>{0e10010e-f436-476f-9a36-b8fbbe8cfb91}</Project>
-      <Name>EmployeeWcf</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

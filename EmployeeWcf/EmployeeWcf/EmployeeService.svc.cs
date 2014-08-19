@@ -8,93 +8,121 @@ using System.Text;
 namespace EmployeeWcf
 {
 
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-  //  [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
+    
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single)]
     public class EmployeeService : IEmployeeAddandCreate, IEmployeeRetrieve
     {
-        private List<Employee> _List = new List<Employee>();
-        private static int count = 0;
-     
-        
-        public void CreateEmployee(String name  ,DateTime date , String remarks)
+        private static List<Employee> EmpList = new List<Employee>();
+    
+        public List<Employee> CreateEmployee(Employee employee)
         {
-            count++;
-            _List.Add(new Employee() { Id= count ,Name =name, date = date ,text = remarks});           
-        }
+            int index = EmpList.FindIndex(a => a.Id == (employee.Id));
 
-        public void GetAllEmployees()
-        {
-            foreach(Employee employee in _List)
+            if (index < 0)
             {
-                Console.WriteLine("EmployeeName:" + employee.Name);
-                Console.WriteLine("EmployeeId:" + employee.Id);
-                Console.WriteLine("EmployeeDate:" + employee.date);
-                Console.WriteLine("EmployeeRemark:" + employee.text);
+                EmpList.Add(employee);
+                return EmpList;
             }
-        }
-
-        public void GetEmployeeDetails(int id)
-        {
-            
-            int index =_List.FindIndex(a=>a.Id==(id));
-               if(index>=0){
-                    Console.WriteLine("EmployeeName:" + _List[index].Name);
-                    Console.WriteLine("EmployeeId:" + _List[index].Id);
-                    Console.WriteLine("EmployeeDate:" + _List[index].date);
-                    Console.WriteLine("EmployeeRemark:" + _List[index].text);
-                    
-                }
-                else
-                    Console.WriteLine("Employee Not Found");
-           
-        }
-
-        public void GetEmployeeDetails(string name)
-        {
-           
-                int index =_List.FindIndex(a=>a.Name==name);
-                if(index>=0){
-                    Console.WriteLine("EmployeeName:" + _List[index].Name);
-                    Console.WriteLine("EmployeeId:" + _List[index].Id);
-                    Console.WriteLine("EmployeeDate:" + _List[index].date);
-                    Console.WriteLine("EmployeeRemark:" + _List[index].text);
-                }             
-                
-                else
-                    Console.WriteLine("Employee Not Found");
-            
-        }
-
-        public void AddRemarksById(int id)
-        {
-            int index =_List.FindIndex(a=>a.Id==id);
-               if(index>=0){
-                
-                    Console.WriteLine("Enter Remark:");
-                    _List[index].text= Console.ReadLine();
-                  
-                }
-                else
-                    Console.WriteLine("Employee Not Found");
-            
-        }
-
-        public void GetEmployeeByRemarks(string remark)
-        {
-            int index =_List.FindIndex(a=>a.text==remark);
-                if (index>=0)
+            else
+            {
+                FaultExceptionContract fault = new FaultExceptionContract
                 {
-                    Console.WriteLine("EmployeeName:" + _List[index].Name);
-                    Console.WriteLine("EmployeeId:" + _List[index].Id);
-                    Console.WriteLine("EmployeeDate:" + _List[index].date);
-                    Console.WriteLine("EmployeeRemark:" + _List[index].text);
-                    
-                    
+                    StatusCode = "101",
+                    Message = "Employee with Id " + employee.Id + " already exists"
+                };
+                throw new FaultException<FaultExceptionContract>
+                (fault, "Employee with Id " + employee.Id + " already  exists");
+            }    
+        }
+
+        public List<Employee> GetAllEmployees()
+        {
+            return EmpList;
+        }
+
+        public Employee GetEmployeeDetails(int id)
+        {
+
+            int index = EmpList.FindIndex(a => a.Id == (id));
+           
+            if (index >= 0)
+            {
+                return EmpList[index];
+
+            }
+            else
+            {
+                FaultExceptionContract fault = new FaultExceptionContract
+                {
+                    StatusCode = "101",
+                    Message = "Employee with Id " + id + " doesnot exist"
+                };
+                throw new FaultException<FaultExceptionContract>
+                (fault, "Employee with Id " + id + " doesnot  exist");
+            }         
+        }
+
+        public Employee GetEmployeeDetails(string name)
+        {
+
+            int index = EmpList.FindIndex(a => a.Name == name);
+                
+            if (index >= 0)
+            {
+                return EmpList[index];
+            }   
+            else
+            {
+                FaultExceptionContract fault = new FaultExceptionContract
+                {
+                    StatusCode = "101",
+                    Message = "Employee with name " + name + " doesnot exist"
+                };
+                throw new FaultException<FaultExceptionContract>
+                (fault, "Employee with name " + name + " doesnot exist");
+            }          
+        }
+
+        public Employee AddRemarksById(int id ,String remark)
+        {
+            int index = EmpList.FindIndex(a => a.Id == id);
+           
+                if (index >= 0)
+                {
+                    EmpList[index].Text = remark;
+                    return EmpList[index];
+
                 }
                 else
-                    Console.WriteLine("Employee Not Found");
-            
+                {
+                    FaultExceptionContract fault = new FaultExceptionContract
+                    {
+                        StatusCode = "101",
+                        Message = "Employee with Id " + id + " doesnot exist"
+                    };
+                    throw new FaultException<FaultExceptionContract>
+                    (fault, "Employee with Id " + id + " doesnot exist");
+                }
+        }
+
+        public List<Employee> GetEmployeeByRemarks(string remark)
+        {
+            List<Employee> employeeList =EmpList.Where(x => x.Text == remark).Select(s => s).ToList();
+
+            if (employeeList.Count != 0)
+            {
+                return employeeList;
+            }         
+            else
+            {
+                FaultExceptionContract fault = new FaultExceptionContract
+                {
+                    StatusCode = "101",
+                    Message = "Employee with remark " + remark + " doesnot exist"
+                };
+                throw new FaultException<FaultExceptionContract>
+                (fault, "Employee with remark " + remark + " doesnot exist");
+            }          
         }
 
     }
